@@ -1,3 +1,29 @@
+/* .custom-container {
+
+} */
+
+/* 
+header
+{
+  font-family: 'Sansita Swashed', cursive !important ;
+  color:black;
+  font-weight:800;
+  font-size:38px;
+  height:60px;
+  padding-top:10px;
+  padding-left:20px;
+  position:sticky;
+  background-color: aquamarine;
+  top:10px; 
+} */
+/* 
+main
+{
+  display:flex;
+  padding-top:10px;
+  padding-bottom:10px;
+} */
+
 .dashboard-container
 {
   display:flex;
@@ -6,6 +32,9 @@
   align-items:center;
 }
 
+.example-margin {
+  margin: 0 10px;
+}
 
 aside
 {
@@ -15,14 +44,16 @@ aside
   background: linear-gradient(#3E3E46, #212122);
   height:95%;
   position:fixed;
-  overflow-y: auto;
 }
 
 main
 {
+  /* background-color:white; */
   margin-left:17%;
   width:80% !important;
   height:95%;
+  /* overflow-y:scroll; */
+  /* background-color:tomato; */
 }
 
 
@@ -51,7 +82,7 @@ header
   display:block;
   width:20%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  padding:2%;
+  /* padding:2%; */
   transition:0.3s;
 }
 
@@ -71,6 +102,8 @@ header
   font-family: 'Righteous', cursive;
   margin-bottom:2%;
 }
+
+.stats-figure { font-size: 38px; margin-bottom:0;}
 
 .stats-desc
 {
@@ -155,10 +188,33 @@ ul {
 }
 
 .demo-chart {
-  height: 300px;
-  left: 100px; 
+  height: 250px;
+  left: 0px; 
   bottom: 20px;
   width:100%;
+  /* transform: scale(0.75); */
+}
+
+.actual-model
+{
+  display:flex;
+  justify-content: space-between;
+  font-family: 'Comfortaa', cursive;
+  font-size:16px;
+  padding:3%;
+  padding-bottom:0;
+  padding-top:0;
+  transition:0.3s;
+}
+
+.actual-model:hover
+{
+  cursor: pointer;
+  margin-left:3%;
+  transition:0.3s;
+  font-size:16px;
+  border-radius: 5px;;
+  margin-right:3%;
 }
 
 .w-60
@@ -178,7 +234,8 @@ ul {
  text-align: center;
  transition:0.3s;
  cursor:pointer;
-
+ font-size:26px;
+ margin:0;
 
 } 
 
@@ -188,36 +245,54 @@ ul {
   transition:0.3s;
 }
 
-.actual-heading
+
+
+.actual-heading, .forecast-heading
 {
   text-align:center;
   font-family: 'Anton', sans-serif;
-  font-size:28px;
+  font-size:18px;
+}
+
+.forecast-heading
+{
+  text-align:left;
+  display:flex;
+  justify-content: space-between;
+  font-size:16px;
+
 }
 
 .actual-data
 {
   text-align:center;
   font-family: 'Alfa Slab One', cursive;
-  font-size:20px;
+  font-size:14px;
 }
 
-::-webkit-scrollbar {
-  width: 0.1px;
-  border-radius:5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1; 
-}
+::ng-deep .date-tweaks .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: white !important;
+ }
  
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888; 
-}
+ ::ng-deep .date-tweaks .mat-form-field-underline {
+  /*change color of underline*/
+  background-color: white !important;
+ } 
+ 
+ ::ng-deep .date-tweaks .mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: white !important;;
+ }
+ 
+ ::ng-deep .date-tweaks .mat-form-field-label {
+  /*change color of label*/
+  color: white !important;
+ }
+ 
+ 
+ mat-datepicker-toggle {
+  color: white !important;
+ }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555; 
-}
+ ::ng-deep .mat-date-range-input-separator {color:white}

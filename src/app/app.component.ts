@@ -4,6 +4,7 @@ import {ThemePalette} from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { EChartsOption } from 'echarts';
 import  { weeklyForecast, weeklyHist, monthlyForecast, monthlyHist, quaterlyForecast, quaterlyHist} from './const_file';
+import  { tradWeight, mlWeight, dlWeight, ensemWeight } from './const_file';
 
 
 export interface Task {
@@ -55,7 +56,21 @@ export class AppComponent implements DoCheck {
     }
   )
 
-  salesIncreament:number = 11.32;
+  promotionWt = false;
+  priceWt = false;
+  marketingWt = false;
+  weatherWt = false;
+  eventsWt = false;
+  holidaysWt = false;
+
+  tradBase = 0.5;
+  mlBase = 0.65;
+  dlBase = 0.60;
+  ensemBase = 0.66;
+  
+  basePrecision:number = 0.7;
+
+  salesIncreament:number = 1.32;
   impressionsIncreament:number = 4.38;
   revenuesIncreament:number = 1.37;
   workforceIncreament:number = 2.62;
@@ -77,11 +92,11 @@ export class AppComponent implements DoCheck {
   },
   series: [
     {
-      data: this.weeklyHist.map(c => c[" Revenue "]),
+      data: this.weeklyHist.map(c => c[" Revenue "]/10000),
       type: 'line',
     },
     {
-      data: Array(this.weeklyHist.length - 1 ).concat(this.weeklyForecast.map(c => c[" Revenue "])),
+      data: Array(this.weeklyHist.length - 1 ).concat(this.weeklyForecast.map(c => c[" Revenue "]/10000)),
       type: 'line',
     },
   ],
@@ -96,11 +111,11 @@ export class AppComponent implements DoCheck {
     },
     series: [
       {
-        data: this.weeklyHist.map(c => c[" Revenue "]),
+        data: this.weeklyHist.map(c => c[" Revenue "]/10000),
         type: 'line',
       },
       {
-        data: Array(this.weeklyHist.length - 1 ).concat(this.weeklyForecast.map(c => c[" Revenue "])),
+        data: Array(this.weeklyHist.length - 1 ).concat(this.weeklyForecast.map(c => c[" Revenue "]/10000)),
         type: 'line',
       },
     ],
@@ -115,11 +130,11 @@ export class AppComponent implements DoCheck {
     },
     series: [
       {
-        data: this.monthlyHist.map(c => c["revenue"]),
+        data: this.monthlyHist.map(c => c["revenue"]/10000),
         type: 'line',
       },
       {
-        data: Array(this.monthlyHist.length - 1).fill('-').concat(this.monthlyForecast.map(c => c["revenue"].toString())),
+        data: Array(this.monthlyHist.length - 1).fill('-').concat(this.monthlyForecast.map(c => (c["revenue"]/10000).toString())),
         type: 'line',
       }
     ],
@@ -138,11 +153,32 @@ export class AppComponent implements DoCheck {
         type: 'line',
       },
       {
-        data: Array(this.quaterlyHist.length -1).fill('-').concat(this.quaterlyForecast.map(c => c["revenue"].toString())),
+        data: Array(this.quaterlyHist.length -1).fill('-').concat(this.quaterlyForecast.map(c => (c["revenue"]/10000).toString())),
         type: 'line',
       }
     ],
   };
+
+  changePrecision(event?:any)
+  {
+    // const p = event.source.value
+    // console.log(tradWeight[p])
+    if(event.checked) 
+    {
+      this.tradBase = this.tradBase + tradWeight[event.source.value.toString()] 
+      this.mlBase = this.mlBase + mlWeight[event.source.value] 
+      this.dlBase = this.dlBase + dlWeight[event.source.value] 
+      this.ensemBase = this.ensemBase + ensemWeight[event.source.value] 
+    }
+    else
+    {
+      this.tradBase = this.tradBase - tradWeight[event.source.value] 
+      this.mlBase = this.mlBase - mlWeight[event.source.value] 
+      this.dlBase = this.dlBase - dlWeight[event.source.value] 
+      this.ensemBase = this.ensemBase - ensemWeight[event.source.value] 
+    } 
+   
+  }
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action);
@@ -243,9 +279,9 @@ appointDate()
   if(this.selectedChartPeriod == 'weekly') 
   {
     this.chartOption = this.chartOptionWeekly
-    this.salesIncreament = 11.32;
+    this.salesIncreament = 1.32;
     this.impressionsIncreament = 4.38;
-    this.revenuesIncreament = 12.37;
+    this.revenuesIncreament = 1.37;
     this.workforceIncreament = 2.62;
     this.actual2021 = 6;
     this.actual2022 = 11;
@@ -256,7 +292,7 @@ appointDate()
   if(this.selectedChartPeriod == 'monthly') 
   {
     this.chartOption = this.chartOptionMonthly
-    this.salesIncreament = 13.37;
+    this.salesIncreament = 3.32;
     this.impressionsIncreament = 1.38;
     this.revenuesIncreament = 3.37;
     this.workforceIncreament = 5.62;
@@ -269,7 +305,7 @@ appointDate()
   if(this.selectedChartPeriod == 'quarterly') 
   {
     this.chartOption = this.chartOptionQuarterly
-    this.salesIncreament = 12.58;
+    this.salesIncreament = 2.32;
     this.impressionsIncreament = 5.38;
     this.revenuesIncreament = 5.37;
     this.workforceIncreament = 1.62;
